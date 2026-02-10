@@ -63,7 +63,6 @@ results.addEventListener("click", (e) => {
 //on click of add to favourites
 
 results.addEventListener("click", (e) => {
-    const imdbId = 
   if (e.target.id === "fav-btn") {
     toggleFavourites(imdbId);
   }
