@@ -1,0 +1,9 @@
+.movie-list{
+    display: flex; /* Makes the child elements flex items, aligning them horizontally by default */
+   gap: 20px;
+   flex-wrap: wrap;
+}
+
+.movie-card{
+    flex: 1; 
+}
