@@ -9,6 +9,7 @@ const results = document.querySelector("#results");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  
 
   const query = input.value.trim();
   if (!query) return;
