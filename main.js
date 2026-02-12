@@ -1,24 +1,24 @@
 import { fetchMoviesBySearch, fetchMovieByID } from "./api.js";
+import { getFavourites } from "./favourites.js";
 import { renderMovieDetails, renderMovies } from "./render.js";
 
-const form = document.querySelector("#search-form");
+export const form = document.querySelector("#search-form");
 const input = document.querySelector("#search-input");
-const results = document.querySelector("#results");
+const results = document.querySelector("#results-section");
+const viewFavs = document.querySelector("#favourites-section");
 
 //ON CLIKC OF SUBMIT , CALL THE API AND FETCH MOVIES
 
+console.log(form);
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   
 
   const query = input.value.trim();
   if (!query) return;
-
   try {
     results.innerHTML = "Loading...";
-
     const moviesData = await fetchMoviesBySearch(query);
-
     if (moviesData.Response === "False") {
       results.innerHTML = `<p>No movies found 😢</p>`;
       return;
@@ -46,6 +46,7 @@ results.addEventListener("click", async (e) => {
 
   try {
     const movieDetails = await fetchMovieByID(imdbId);
+    console.log(movieDetails);
 
     renderMovieDetails(movieDetails);
   } catch (error) {
@@ -54,17 +55,21 @@ results.addEventListener("click", async (e) => {
   }
 });
 
-//on click of Back button from movies details screen
-results.addEventListener("click", (e) => {
-  if (e.target.id === "back-btn") {
-    form.dispatchEvent(new Event("submit"));
-  }
-});
 
-//on click of add to favourites
+//event function to trigger on click of view favourites
+viewFavs.addEventListener('click', async ()=>{
 
-results.addEventListener("click", (e) => {
-  if (e.target.id === "fav-btn") {
-    toggleFavourites(imdbId);
-  }
-});
+  const favs = getFavourites();
+
+  favs.forEach(fav => {
+
+
+    
+  });
+
+ 
+
+
+    
+  })
+

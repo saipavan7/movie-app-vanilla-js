@@ -10,6 +10,8 @@ export function saveFavourites(favourites) {
 //Toggle a movie in favourites
 export function toggleFavourites(imdbId) {
   let favourites = getFavourites();
+  console.log(imdbId);
+  console.log(favourites);
 
   if (favourites.includes(imdbId)) {
     favourites = favourites.filter((fav) => fav !== imdbId);
@@ -18,6 +20,7 @@ export function toggleFavourites(imdbId) {
   }
 
   saveFavourites(favourites);
+  console.log(favourites);
   return favourites;
 }
 

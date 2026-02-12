@@ -7,3 +7,7 @@
 .movie-card{
     flex: 1; 
 }
+#details-view{
+     display: flex;
+      gap: 30px;
+}
