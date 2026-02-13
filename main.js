@@ -5,14 +5,13 @@ import { renderMovieDetails, renderMovies } from "./render.js";
 export const form = document.querySelector("#search-form");
 const input = document.querySelector("#search-input");
 const results = document.querySelector("#results-section");
-const viewFavs = document.querySelector("#favourites-section");
+const viewFavs = document.querySelector("#view-favourites");
 
 //ON CLIKC OF SUBMIT , CALL THE API AND FETCH MOVIES
-
-console.log(form);
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   
+  console.log("submit event triggered");
 
   const query = input.value.trim();
   if (!query) return;
@@ -32,10 +31,10 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-//event listenig button click (movie selected) and fetch details from API
+//event listening button click (movie selected) and fetch details from API
 results.addEventListener("click", async (e) => {
   const movieCard = e.target.closest(".movie-card");
-  console.log("clicked onmovie", movieCard);
+  console.log("clicked on movie for movie Details ", movieCard);
 
   if (!movieCard) return;
 
@@ -58,18 +57,9 @@ results.addEventListener("click", async (e) => {
 
 //event function to trigger on click of view favourites
 viewFavs.addEventListener('click', async ()=>{
-
   const favs = getFavourites();
-
-  favs.forEach(fav => {
-
-
-    
-  });
-
- 
-
-
+  console.log("Favourites button clicked");
+  renderMovies(favs);
     
   })
 

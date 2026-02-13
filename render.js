@@ -4,6 +4,7 @@ import { form } from './main.js';
 export function renderMovies(movies) {
   const results = document.querySelector("#results-section");
   results.innerHTML = "";
+  console.log('CLEARED');
 
   console.log(movies);
 
@@ -55,7 +56,7 @@ export function renderMovieDetails(movie) {
    // Add click listener for favourite button
   document.querySelector("#fav-btn").addEventListener("click", () => {
     console.log("triggered positive");
-    toggleFavourites(movie.imdbID);
+    toggleFavourites(movie);
     renderMovieDetails(movie);
   });
 
@@ -65,12 +66,8 @@ export function renderMovieDetails(movie) {
     // document.querySelector("#details-view").style.display = "none";
     // document.querySelector("#search-view").style.display = "block";
 // const form = document.querySelector('#search-form');
-
     // trigger last search again
     form.dispatchEvent(new Event("submit"));
   });
 
 }
-
-
-

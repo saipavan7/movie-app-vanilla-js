@@ -8,15 +8,24 @@ export function saveFavourites(favourites) {
 }
 
 //Toggle a movie in favourites
-export function toggleFavourites(imdbId) {
+export function toggleFavourites(movie) {
   let favourites = getFavourites();
-  console.log(imdbId);
+  console.log(movie);
   console.log(favourites);
 
-  if (favourites.includes(imdbId)) {
-    favourites = favourites.filter((fav) => fav !== imdbId);
-  } else {
-    favourites.push(imdbId);
+  // if (favourites.includes(imdbId)) {
+  //   favourites = favourites.filter((fav) => fav !== imdbId);
+  // } else {
+  //   favourites.push(imdbId);
+  // }
+
+  const exits = favourites.some(mov => mov.imdbID === movie.imdbID);
+
+  if(!exits){
+    favourites.push(movie);
+  }
+  else{
+    favourites = favourites.filter((fav) => fav.imdbID !== movie.imdbID);
   }
 
   saveFavourites(favourites);
@@ -27,5 +36,5 @@ export function toggleFavourites(imdbId) {
 //check if a movie in favourites
 export function isFavourite(imdbId) {
   const favourites = getFavourites();
-  return favourites.includes(imdbId);
+  return favourites.some(mov => mov.imdbID === imdbId);
 }
