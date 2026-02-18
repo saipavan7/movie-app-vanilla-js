@@ -1,15 +1,13 @@
-import { isFavourite, toggleFavourites } from "./favourites.js";
-import { form } from './main.js';
+import { getFavourites, isFavourite, toggleFavourites } from "./favourites.js";
+import { renderHome } from './main.js';
 
-export function renderMovies(movies) {
-  const results = document.querySelector("#results-section");
-  results.innerHTML = "";
-  console.log('CLEARED');
+export function renderMovies(movies , container) {
 
-  console.log(movies);
+  container.innerHTML = "";
+  console.log(movies, container);
 
   if (!movies || movies.length === 0) {
-    results.innerHTML = "<p>No movies found</p>";
+    container.innerHTML = "<p>No movies found</p>";
     return;
   }
   const searchResultsCard = document.createElement("div");
@@ -28,8 +26,9 @@ export function renderMovies(movies) {
     `;
 
     searchResultsCard.appendChild(card);
-    results.appendChild(searchResultsCard);
   });
+  console.log(searchResultsCard);
+   container.appendChild(searchResultsCard);
 }
 
 export function renderMovieDetails(movie) {
@@ -48,7 +47,6 @@ export function renderMovieDetails(movie) {
     <p><strong>Rating:</strong> ${movie.imdbRating}</p>
     <p>${movie.Plot}</p>
     <button id="fav-btn">${favText}</button>
-    <button id="back-btn">Back</button>
     </div>
   `;
 
@@ -60,14 +58,5 @@ export function renderMovieDetails(movie) {
     renderMovieDetails(movie);
   });
 
-
-  //back button
-  document.querySelector("#back-btn").addEventListener("click", () => {
-    // document.querySelector("#details-view").style.display = "none";
-    // document.querySelector("#search-view").style.display = "block";
-// const form = document.querySelector('#search-form');
-    // trigger last search again
-    form.dispatchEvent(new Event("submit"));
-  });
 
 }

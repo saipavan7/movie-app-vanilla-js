@@ -11,3 +11,6 @@
      display: flex;
       gap: 30px;
 }
+.hidden{
+    display: none;
+}
