@@ -4,13 +4,21 @@ import { renderMovieDetails, renderMovies } from "./render.js";
 
 export const form = document.querySelector("#search-form");
 const input = document.querySelector("#search-input");
+
 const results = document.querySelector("#results-section");
 const details = document.querySelector('#details-section');
+const favSection = document.querySelector("#favourites-section");
+
 const viewFavs = document.querySelector("#view-favourites");
 const backBtn = document.querySelector('#back-button');
-const favSection = document.querySelector("#favourites-section");
+
+
+
 let currentScreen = 'Home';
 let prevScreen = null;
+
+let screenResults = [];
+let searchQuery = '';
 
 //ON CLIKC OF SUBMIT , CALL THE API AND FETCH MOVIES
 form.addEventListener("submit", async (e) => {
@@ -18,17 +26,18 @@ form.addEventListener("submit", async (e) => {
   
   console.log("submit event triggered");
 
-  const query = input.value.trim();
-  if (!query) return;
+  searchQuery = input.value.trim();
+  if (!searchQuery) return;
   try {
     results.innerHTML = "Loading...";
-    const moviesData = await fetchMoviesBySearch(query);
+    const moviesData = await fetchMoviesBySearch(searchQuery);
     if (moviesData.Response === "False") {
       results.innerHTML = `<p>No movies found 😢</p>`;
       return;
     }
 
     results.innerHTML = "";
+    screenResults = moviesData.Search;
     renderMovies(moviesData.Search , results);
   } catch (error) {
     results.innerHTML = "Something went wrong 😢";
@@ -37,7 +46,10 @@ form.addEventListener("submit", async (e) => {
 });
 
 //event listening button click (movie selected) and fetch details from API
-results.addEventListener("click", async (e) => {
+results.addEventListener("click", onMovieCardClick);
+favSection.addEventListener("click", onMovieCardClick);
+
+  async function onMovieCardClick(e){
   const movieCard = e.target.closest(".movie-card");
   console.log("clicked on movie for movie Details ", movieCard);
 
@@ -56,11 +68,16 @@ results.addEventListener("click", async (e) => {
   currentScreen = 'Details';
       backBtn.classList.remove('hidden');
     renderMovieDetails(movieDetails);
+    form.style.display = "none";
+     results.style.display = "none";
+     favSection.style.display = "none";
+     details.style.display = "block";
   } catch (error) {
     console.error(error);
     results.innerHTML = "Failed to load movie 😢";
   }
-});
+}
+
 
 
 //event function to trigger on click of view favourites
@@ -80,7 +97,7 @@ viewFavs.addEventListener('click', async ()=>{
     renderHome();
     }
     else if(prevScreen === 'Details'){
-      renderMovieDetails(movieDetails);
+      renderHome();
     }
   });
 
@@ -95,8 +112,12 @@ viewFavs.addEventListener('click', async ()=>{
 
    form.style.display = "block";
    results.style.display = "block";
-   viewFavs.style.display = "none";
+   favSection.style.display = "none";
    details.style.display = "none";
+
+   if(screenResults.length>0){
+    renderMovies(screenResults , results);
+   }
 
   }
 
@@ -113,7 +134,7 @@ viewFavs.addEventListener('click', async ()=>{
   renderMovies(getFavourites() , favSection);
     form.style.display = "none";
    results.style.display = "none";
-   viewFavs.style.display = "block";
+   favSection.style.display = "block";
    details.style.display = "none";
 
 

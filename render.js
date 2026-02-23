@@ -34,6 +34,8 @@ export function renderMovies(movies , container) {
 export function renderMovieDetails(movie) {
   const detailsContainer = document.querySelector("#details-section");
 
+  console.log('render Movie Details called');
+
   //Determine favourite state
   const favText = isFavourite(movie.imdbID)
     ? "Remove from favourites"
@@ -49,7 +51,6 @@ export function renderMovieDetails(movie) {
     <button id="fav-btn">${favText}</button>
     </div>
   `;
-
 
    // Add click listener for favourite button
   document.querySelector("#fav-btn").addEventListener("click", () => {
