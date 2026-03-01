@@ -11,6 +11,7 @@ const favSection = document.querySelector("#favourites-section");
 
 const viewFavs = document.querySelector("#view-favourites");
 const backBtn = document.querySelector('#back-button');
+const clearBtn = document.querySelector('#clear-movies')
 
 
 
@@ -87,6 +88,16 @@ viewFavs.addEventListener('click', async ()=>{
  
   })
 
+ clearBtn.addEventListener('click' ,()=>{
+
+  screenResults=[];
+  searchQuery="";
+  results.innerHTML="";
+  input.value="";
+  input.focus();
+ })
+
+
 
   backBtn.addEventListener('click', async ()=>{
 
@@ -116,6 +127,7 @@ viewFavs.addEventListener('click', async ()=>{
    details.style.display = "none";
 
    if(screenResults.length>0){
+    console.log(screenResults);
     renderMovies(screenResults , results);
    }
 
